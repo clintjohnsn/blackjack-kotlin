@@ -35,9 +35,12 @@ class Game(val user: User, val table: Table) {
     fun playerTurn(player:Player){
         println("Player hand:- ${player.hand}")
         println("Score:- ${player.handValue}")
-        println("Hit(h) or Stand(s)?")
-        var ans = readLine()!!
-        while(ans=="h" && !player.busted){
+        var ans= "s"
+        if(player.handValue <21){
+            println("Hit(h) or Stand(s)?")
+            ans = readLine()!!
+        }
+        while(ans=="h" && player.handValue <21){
             player.hit(deck)
             println("Your hand:- ${player.hand}")
             println("Score:- ${player.handValue}")

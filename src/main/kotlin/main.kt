@@ -31,10 +31,11 @@ fun main(args: Array<String>) {
     while(ans=="y"){
         val game = Game(user,table)
         game.play()
-        println("Play again? y/n")
+        println("Play again? y/n: Bankroll ${user.bankRoll}")
         ans = readLine()!!
     }
-    
-//
+
+
     println("User: ${user.userName} Bankroll: ${user.bankRoll}" )
+
 }
