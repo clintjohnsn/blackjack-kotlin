@@ -69,24 +69,107 @@ class GameTest {
 
         //action
         game.dealerTurn()
+        game.endGame(game.player)
 
         //assert
         assertEquals(26,game.dealer.handValue)
+        assertEquals(19,game.player.handValue)
         assertEquals(true,game.dealer.busted)
+        assertEquals(game.player,game.winner)
     }
 
     @Test
     fun `dealer wins`(){
+        //setup
+        val c1 = Card(Suits.Clubs,"9")
+        val c2 = Card(Suits.Clubs,"10")
+        val c3 = Card(Suits.Clubs,"K")
+        val c4=  Card(Suits.Diamonds,"6")
+        game.player.initHand(c1,c2)
+        game.dealer.initHand(c3,c4)
+        game.deck.cards.addAll(listOf(
+            Card(Suits.Spades,"4")
+        ))
 
+        //action
+        game.dealerTurn()
+        game.endGame(game.player)
+
+        //assert
+        assertEquals(20,game.dealer.handValue)
+        assertEquals(19,game.player.handValue)
+        assertEquals(false,game.dealer.busted)
+        assertEquals(game.dealer, game.winner)
     }
 
     @Test
     fun `dealer loses`(){
+        //setup
+        val c1 = Card(Suits.Clubs,"9")
+        val c2 = Card(Suits.Clubs,"10")
+        val c3 = Card(Suits.Clubs,"K")
+        val c4=  Card(Suits.Diamonds,"4")
+        game.player.initHand(c1,c2)
+        game.dealer.initHand(c3,c4)
+        game.deck.cards.addAll(listOf(
+            Card(Suits.Spades,"3")
+        ))
 
+        //action
+        game.dealerTurn()
+        game.endGame(game.player)
+
+        //assert
+        assertEquals(17,game.dealer.handValue)
+        assertEquals(19,game.player.handValue)
+        assertEquals(false,game.dealer.busted)
+        assertEquals(game.player, game.winner)
     }
 
     @Test
     fun `draw or push state`(){
+        //setup
+        val c1 = Card(Suits.Clubs,"9")
+        val c2 = Card(Suits.Clubs,"10")
+        val c3 = Card(Suits.Clubs,"K")
+        val c4=  Card(Suits.Diamonds,"4")
+        game.player.initHand(c1,c2)
+        game.dealer.initHand(c3,c4)
+        game.deck.cards.addAll(listOf(
+            Card(Suits.Spades,"5")
+        ))
 
+        //action
+        game.dealerTurn()
+        game.endGame(game.player)
+
+        //assert
+        assertEquals(19,game.dealer.handValue)
+        assertEquals(19,game.player.handValue)
+        assertEquals(false,game.dealer.busted)
+        assertEquals(null, game.winner)
+    }
+    @Test
+    fun `both checkmate`(){
+        //setup
+        val c1 = Card(Suits.Clubs,"A")
+        val c2 = Card(Suits.Clubs,"10")
+        val c3 = Card(Suits.Clubs,"K")
+        val c4=  Card(Suits.Diamonds,"A")
+        game.player.initHand(c1,c2)
+        game.dealer.initHand(c3,c4)
+        game.deck.cards.addAll(listOf(
+            Card(Suits.Spades,"5")
+        ))
+
+        //action
+        game.dealerTurn()
+        game.endGame(game.player)
+
+        //assert
+        assertEquals(21,game.dealer.handValue)
+        assertEquals(21,game.player.handValue)
+        assertEquals(false,game.dealer.busted)
+        assertEquals(null, game.winner)
     }
 }

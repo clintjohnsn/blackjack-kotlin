@@ -53,12 +53,12 @@ class Game(val user: User, val table: Table) {
     }
     fun endGame(player: Player){
         when{
-            player.busted || (!player.busted && dealer.handValue > player.handValue)->{
+            player.busted || (!player.busted && !dealer.busted && dealer.handValue > player.handValue)->{
                 println("Player lost")
                 player.lose(table.betSize)
                 winner = dealer
             }
-            dealer.busted || (!dealer.busted && dealer.handValue < player.handValue)->{
+            dealer.busted || (!dealer.busted && !player.busted && dealer.handValue < player.handValue)->{
                 println("Player won")
                 player.win(table.betSize)
                 winner = player
