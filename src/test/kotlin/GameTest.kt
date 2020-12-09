@@ -172,4 +172,80 @@ class GameTest {
         assertEquals(false,game.dealer.busted)
         assertEquals(null, game.winner)
     }
+
+    @Test
+    fun `player wins after hitting`(){
+        //setup
+        val c1 = Card(Suits.Clubs,"9")
+        val c2 = Card(Suits.Clubs,"10")
+        val c3 = Card(Suits.Clubs,"K")
+        val c4=  Card(Suits.Diamonds,"4")
+        game.player.initHand(c1,c2)
+        game.dealer.initHand(c3,c4)
+        game.deck.cards.addAll(listOf(
+            Card(Suits.Spades,"5")
+        ))
+
+        //action
+        game.player.hit(game.deck)
+        game.endGame(game.player)
+
+        //assert
+        assertEquals(14,game.dealer.handValue)
+        assertEquals(24,game.player.handValue)
+        assertEquals(true,game.player.busted)
+        assertEquals(game.dealer, game.winner)
+    }
+
+
+    @Test
+    fun `player wins after standing`(){
+        //setup
+        val c1 = Card(Suits.Clubs,"9")
+        val c2 = Card(Suits.Clubs,"10")
+        val c3 = Card(Suits.Clubs,"K")
+        val c4=  Card(Suits.Diamonds,"4")
+        game.player.initHand(c1,c2)
+        game.dealer.initHand(c3,c4)
+        game.deck.cards.addAll(listOf(
+            Card(Suits.Spades,"10")
+        ))
+
+        //action
+        game.player.stand(game.deck)
+        game.dealerTurn()
+        game.endGame(game.player)
+
+        //assert
+        assertEquals(24,game.dealer.handValue)
+        assertEquals(19,game.player.handValue)
+        assertEquals(true,game.dealer.busted)
+        assertEquals(game.player, game.winner)
+    }
+
+    @Test
+    fun `player loses after standing`(){
+        //setup
+        val c1 = Card(Suits.Clubs,"9")
+        val c2 = Card(Suits.Clubs,"10")
+        val c3 = Card(Suits.Clubs,"K")
+        val c4=  Card(Suits.Diamonds,"4")
+        game.player.initHand(c1,c2)
+        game.dealer.initHand(c3,c4)
+        game.deck.cards.addAll(listOf(
+            Card(Suits.Spades,"6")
+        ))
+
+        //action
+        game.player.stand(game.deck)
+        game.dealerTurn()
+        game.endGame(game.player)
+
+        //assert
+        assertEquals(20,game.dealer.handValue)
+        assertEquals(19,game.player.handValue)
+        assertEquals(false,game.player.busted)
+        assertEquals(false,game.dealer.busted)
+        assertEquals(game.dealer, game.winner)
+    }
 }
