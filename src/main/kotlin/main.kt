@@ -1,5 +1,8 @@
+import java.lang.Exception
+
 fun main(args: Array<String>) {
 
+    // mock user data
     val UsersList = mutableListOf<User>(
         User("tony.stark@marvel.com", "edward", 1500, "Iron Man", "..."),
         User("donald.blake@marvel.com", "hammer", 10, "Thor", "..."),
@@ -7,6 +10,7 @@ fun main(args: Array<String>) {
         User("steve.rogers@marvel.com", "shield", 100, "Captain America", "..."),
         User("natasha@marvel.com    ", "Наташа", 200, "Black Widow", "..."),
     )
+    // mock table data
     val TableList = mutableListOf<Table>(
         Table("Ego",1),
         Table("Earth",2),
@@ -15,7 +19,22 @@ fun main(args: Array<String>) {
         Table("Titan",100)
     )
 
-    val User = UsersList[0]
-    val Table=TableList[4]
+    //assume user
+    val user = UsersList[0]
+    // assume user selects table
+    val table=TableList[4]
 
+    println("User: ${user.userName},Bankroll: ${user.bankRoll}" )
+    println("Table: ${table.name},Betsize: ${table.betSize}")
+
+    var ans = "y"
+    while(ans=="y"){
+        val game = Game(user,table)
+        game.play()
+        println("Play again? y/n")
+        ans = readLine()!!
+    }
+    
+//
+    println("User: ${user.userName} Bankroll: ${user.bankRoll}" )
 }

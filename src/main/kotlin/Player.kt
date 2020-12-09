@@ -1,14 +1,19 @@
-class Player(val user:User) {
+open class Player() {
+    constructor(user: User):this(){
+        this.user = user
+    }
+    var user: User = User("","",0,"dealer","");
+
     val hand = mutableListOf<Card>()
     var busted:Boolean = false
         get(){
-            busted = handValue > 21
-            return busted
+            field = handValue > 21
+            return field
         }
     var handValue: Int = 0
-        get() {
+        get(){
             updateHandValue()
-            return handValue
+            return field
         }
 
     fun initHand(card1:Card,card2:Card){
@@ -27,7 +32,7 @@ class Player(val user:User) {
             for(card in hand){
                 if(!card.hard){
                     card.setHard()
-                    if(!busted) return
+                    if(!busted) break
                 }
             }
         }

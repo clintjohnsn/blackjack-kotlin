@@ -20,4 +20,8 @@ class Card(
         }
     }
 
+    override fun toString(): String {
+        return "${suit} : ${symbol}"
+    }
+
 }
