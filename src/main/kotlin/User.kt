@@ -5,4 +5,11 @@ class User(
     val userName:String,
     val avatar:String) {
 
+    fun win(amount:Int){
+        bankRoll+=amount
+    }
+
+    fun lose(amount:Int){
+        bankRoll-=amount
+    }
 }
